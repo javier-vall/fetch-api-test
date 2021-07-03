@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import data from "./data";
+import React, { useEffect, useState } from "react";
+import ItemsListContainer from "./components/ItemsListContainer";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProducts(data);
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  if (loading) {
+    return <h2>Cargando la wea...</h2>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h2>Products List</h2>
+      <ItemsListContainer products={products} />
+    </>
   );
 }
 
